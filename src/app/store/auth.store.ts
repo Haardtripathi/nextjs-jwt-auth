@@ -15,8 +15,8 @@ interface AuthState {
     token: string | null;
     isLoading: boolean;
     isAuthenticated: boolean;
-    login: (email: string, password: string) => Promise<void>;
-    register: (email: string, password: string) => Promise<void>;
+    login: (email: string, password: string) => Promise<boolean>;
+    register: (email: string, password: string) => Promise<boolean>;
     logout: () => void;
     initialize: () => Promise<void>;
 }
@@ -80,9 +80,12 @@ export const useAuthStore = create<AuthState>()(
                         isAuthenticated: true,
                     });
 
+
                     toast.success('Logged in successfully');
+                    return true
                 } catch (error: any) {
                     toast.error(error.response?.data?.message || 'Failed to login');
+                    return false
                 } finally {
                     set({ isLoading: false });
                 }
@@ -97,8 +100,12 @@ export const useAuthStore = create<AuthState>()(
                     });
 
                     toast.success('Registered successfully');
+                    return true
                 } catch (error: any) {
+
                     toast.error(error.response?.data?.message || 'Failed to register');
+                    return false
+
                 } finally {
                     set({ isLoading: false });
                 }
