@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { connectDB } from '@/app/lib/db';
 import { User } from '@/app/models/user.model';
 import { NextResponse } from 'next/server';

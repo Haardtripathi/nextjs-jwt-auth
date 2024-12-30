@@ -8,7 +8,7 @@ import { Activity, Users, DollarSign, LineChart } from 'lucide-react';
 import { Loader } from "lucide-react";
 
 export default function DashboardPage() {
-    const { isAuthenticated, user, isLoading } = useAuthStore();
+    const { isAuthenticated, isLoading } = useAuthStore();
     const router = useRouter();
 
     useEffect(() => {
