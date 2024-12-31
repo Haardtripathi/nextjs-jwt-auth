@@ -187,15 +187,19 @@ import { Loader, Mail, Lock, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ProtectedRoute } from '@/app/components/protected-route';
+import { useRouter } from 'next/navigation';
+
 
 export default function RegisterPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { register, isLoading } = useAuthStore();
+    const router = useRouter()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await register(email, password);
+        router.push("/login")
     };
 
     return (

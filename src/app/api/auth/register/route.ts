@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { connectDB } from '@/app/lib/db';
-import { User } from '@/app/models/user.model';
+import User from '@/app/models/user.model';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
         const { email, password } = await req.json();
 
         // Check if user exists
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
             return NextResponse.json(
                 { message: 'User already exists' },
@@ -19,17 +19,17 @@ export async function POST(req: Request) {
         }
 
         // Create new user
-        const user = await User.create({ email, password });
+        await User.create({ email, password });
 
         return NextResponse.json(
             { message: 'User created successfully' },
             { status: 201 }
         );
     } catch (error) {
+        console.error('Error:', error);
         return NextResponse.json(
             { message: 'Internal server error' },
             { status: 500 }
         );
     }
 }
-

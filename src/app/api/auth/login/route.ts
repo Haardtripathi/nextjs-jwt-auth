@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { connectDB } from '@/app/lib/db';
-import { User } from '@/app/models/user.model';
+import User from '@/app/models/user.model';
 import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 
@@ -12,8 +12,8 @@ export async function POST(req: Request) {
 
         const { email, password } = await req.json();
 
-        // Find user
-        const user = await User.findOne({ email });
+        // Find user by email
+        const user = await User.findOne({ where: { email } });
         if (!user) {
             return NextResponse.json(
                 { message: 'Invalid credentials' },
@@ -30,25 +30,28 @@ export async function POST(req: Request) {
             );
         }
 
-        // Generate token
+        // Generate JWT token
         const token = jwt.sign(
-            { userId: user._id },
+            { userId: user.id },
             JWT_SECRET,
             { expiresIn: '1h' }
         );
 
-        return NextResponse.json({
-            user: {
-                id: user._id,
-                email: user.email,
+        return NextResponse.json(
+            {
+                user: {
+                    id: user.id,
+                    email: user.email,
+                },
+                token,
             },
-            token,
-        });
+            { status: 200 }
+        );
     } catch (error) {
+        console.error('Error:', error);
         return NextResponse.json(
             { message: 'Internal server error' },
             { status: 500 }
         );
     }
 }
-
