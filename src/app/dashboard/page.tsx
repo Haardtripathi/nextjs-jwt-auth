@@ -94,7 +94,6 @@
 
 'use client';
 
-import { useAuthStore } from '../store/auth.store';
 import { StatsCard } from '../components/dashboard/stats-card';
 import { Activity, Users, DollarSign, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -136,7 +135,6 @@ export default function DashboardPage() {
                             title="Total Users"
                             value="1,234"
                             icon={<Users className="h-6 w-6 text-primary" />}
-                            trend="+5.2%"
                         />
                     </motion.div>
                     <motion.div variants={itemVariants}>
@@ -144,7 +142,6 @@ export default function DashboardPage() {
                             title="Active Now"
                             value="321"
                             icon={<Activity className="h-6 w-6 text-green-500" />}
-                            trend="+2.4%"
                         />
                     </motion.div>
                     <motion.div variants={itemVariants}>
@@ -152,7 +149,6 @@ export default function DashboardPage() {
                             title="Revenue"
                             value="$45,231"
                             icon={<DollarSign className="h-6 w-6 text-yellow-500" />}
-                            trend="+8.1%"
                         />
                     </motion.div>
                     <motion.div variants={itemVariants}>
@@ -160,7 +156,6 @@ export default function DashboardPage() {
                             title="Growth"
                             value="+12.5%"
                             icon={<TrendingUp className="h-6 w-6 text-blue-500" />}
-                            trend="+3.2%"
                         />
                     </motion.div>
                 </motion.div>
